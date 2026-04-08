@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <useWPF>true</useWPF>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Flow.Launcher.Plugin.Zoxide</AssemblyName>
+    <PackageId>Flow.Launcher.Plugin.Zoxide</PackageId>
+    <Authors>WantChane</Authors>
+    <PackageProjectUrl>https://github.com/WantChane/Flow.Launcher.Plugin.Zoxide</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/WantChane/Flow.Launcher.Plugin.Zoxide</RepositoryUrl>
+    <PackageTags>flow-launcher flow-plugin</PackageTags>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="plugin.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Flow.Launcher.Plugin" Version="5.2.0" />
+  </ItemGroup>
+
+</Project>

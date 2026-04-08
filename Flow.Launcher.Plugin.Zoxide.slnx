@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Flow.Launcher.Plugin.Zoxide.Test/Flow.Launcher.Plugin.Zoxide.Test.csproj" />
+  <Project Path="Flow.Launcher.Plugin.Zoxide/Flow.Launcher.Plugin.Zoxide.csproj" />
+</Solution>
