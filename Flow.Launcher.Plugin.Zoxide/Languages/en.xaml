@@ -1,0 +1,84 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_name">Zoxide</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_description">Zoxide integration for Flow Launcher, written in C#.</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_zoxideexepath">Path to zoxide.exe</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_command_timeout">Command timeout (ms)</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_command_timeout">Maximum time to wait for the zoxide child process to finish (milliseconds).</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_browse">Browse…</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_test">Test path</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_save">Save</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_commands">Custom commands</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_default_command">Default command</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_col_command_name">Name</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_col_command_executable">Executable</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_col_command_arguments">Arguments</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_col_command_status">Status</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_status_enabled">Enabled</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_status_disabled">Disabled</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_add_command">Add</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_delete_command">Delete</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_modify_command">Edit</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_move_command_up">Move up</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_move_command_down">Move down</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_enable_command">Enable</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_disable_command">Disable</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_save_commands">Save commands</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_dialog_command_title">Edit command</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_name">Name</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_executable">Executable</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_arguments">Arguments</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_zoxide_add">Run zoxide add after opening path successfully</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_dialog_ok">OK</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_dialog_cancel">Cancel</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_dialog_browse_title">Select zoxide.exe</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_dialog_browse_filter">Executables (*.exe)|*.exe</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success">Test succeeded</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success_detail">zoxide {0} is available.</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure">Test failed</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure_detail_nopath">Please enter the path to zoxide.exe first.</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure_detail_other">Could not run {0}. Make sure the file exists and is a valid zoxide executable.</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_command_default_name">Open with File Explorer</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_result_setup_title">Configure path to zoxide.exe</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_result_setup_subtitle">Settings → Plugins → Zoxide: set a valid zoxide.exe path and save.</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_result_install_title">Install zoxide</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_result_install_subtitle">Open the official zoxide repository in your browser</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_nomatches_title">No matching directories</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_nomatches_subtitle">zoxide has no entries matching the current query</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_parse_failed_title">Could not parse zoxide output</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_parse_failed_subtitle">The output format is unexpected; check your zoxide version. Raw snippet: {0}</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_timeout_title">zoxide query timed out</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_timeout_subtitle">The child process did not finish in time. Try again later or increase the timeout.</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_cancelled_title">Query cancelled</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_cancelled_subtitle">The operation was cancelled.</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_exit_title">zoxide exited with code {0}</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_exit_subtitle_no_stderr">Command failed; standard error is empty.</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_exit_subtitle_stderr">Standard error: {0}</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_start_failed_title">Could not start zoxide</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_start_failed_subtitle">Process.Start returned null. Check the executable path and permissions.</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_invalid_path_title">Invalid zoxide path</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_invalid_path_subtitle">The executable path is empty or invalid.</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_exception_title">Error while running zoxide</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_exception_subtitle">{0}</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_unknown_failure_title">zoxide query failed</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_unknown_failure_subtitle">An unknown error occurred.</system:String>
+</ResourceDictionary>
