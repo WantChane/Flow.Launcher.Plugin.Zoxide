@@ -44,12 +44,12 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success">测试成功</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success_detail">zoxide {0}可用。</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure">测试失败</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure_detail_nopath">请先填写 zoxide.exe 的路径。</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure_detail_nopath">请先配置 zoxide.exe 的路径。</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure_detail_other">无法运行 {0} ,请确认文件存在且为有效的 zoxide 可执行文件。</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_command_default_name">使用文件资源管理器打开</system:String>
 
-    <system:String x:Key="flowlauncher_plugin_zoxide_result_setup_title">请先配置 zoxide.exe 路径</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_result_setup_title">配置 zoxide.exe 路径</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_result_setup_subtitle">设置->插件->Zoxide，填写有效的 zoxide.exe 路径并保存</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_result_install_title">安装 zoxide</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_result_install_subtitle">在浏览器中打开 zoxide 官方仓库</system:String>

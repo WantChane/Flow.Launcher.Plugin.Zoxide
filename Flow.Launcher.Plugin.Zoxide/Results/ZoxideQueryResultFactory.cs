@@ -154,6 +154,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                 AddSelectedCount = false,
                 Score = entry.Score,
                 ContextData = path,
+                CopyText = path,
                 Action = context =>
                 {
                     var outcome = CommandHelper.TryOpenPath(path);

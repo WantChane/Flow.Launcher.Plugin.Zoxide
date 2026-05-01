@@ -44,7 +44,7 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success">Test succeeded</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success_detail">zoxide {0} is available.</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure">Test failed</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure_detail_nopath">Please enter the path to zoxide.exe first.</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure_detail_nopath">Please configure the path to zoxide.exe first.</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure_detail_other">Could not run {0}. Make sure the file exists and is a valid zoxide executable.</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_command_default_name">Open with File Explorer</system:String>

@@ -4,18 +4,18 @@ using Flow.Launcher.Plugin.Zoxide.Results;
 using Flow.Launcher.Plugin.Zoxide.ViewModels;
 using Flow.Launcher.Plugin.Zoxide.Views;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace Flow.Launcher.Plugin.Zoxide
 {
-    public class Main : IAsyncPlugin, ISettingProvider, IPluginI18n, IContextMenu, IAsyncReloadable
+    public class Main : IAsyncPlugin, ISettingProvider, IPluginI18n, IContextMenu, IAsyncReloadable, IAsyncDialogJump
     {
         internal static PluginInitContext Context = null!;
 
         internal static Settings Settings { get; private set; } = null!;
-
 
         public async Task<List<Result>> QueryAsync(Query query, CancellationToken token)
         {
@@ -28,6 +28,19 @@ namespace Flow.Launcher.Plugin.Zoxide
                 token);
 
             return ZoxideQueryResultFactory.FromQueryExecution(execution);
+        }
+
+        public async Task<List<DialogJumpResult>> QueryDialogJumpAsync(Query query, CancellationToken token)
+        {
+            if (string.IsNullOrWhiteSpace(Settings.ZoxideExePath) || !ZoxideHelper.IsPathValid)
+                return [.. ZoxideSetupRequiredResultFactory.Create().Select(r => DialogJumpResult.From(r, string.Empty))];
+
+            var execution = await ZoxideHelper.ZoxideQueryAsync(
+                Settings.ZoxideExePath,
+                query.Search,
+                token);
+            var results = ZoxideQueryResultFactory.FromQueryExecution(execution);
+            return [.. results.Select(r => DialogJumpResult.From(r, r.CopyText))];
         }
 
         public List<Result> LoadContextMenus(Result selectedResult)
@@ -52,9 +65,9 @@ namespace Flow.Launcher.Plugin.Zoxide
             return new SettingsControl(vm);
         }
 
-        public string GetTranslatedPluginDescription()
+        public async Task ReloadDataAsync()
         {
-            return Context.API.GetTranslation("flowlauncher_plugin_zoxide_description");
+            await ZoxideHelper.ValidateAsync(Settings.ZoxideExePath);
         }
 
         public string GetTranslatedPluginTitle()
@@ -62,9 +75,9 @@ namespace Flow.Launcher.Plugin.Zoxide
             return Context.API.GetTranslation("flowlauncher_plugin_zoxide_name");
         }
 
-        public async Task ReloadDataAsync()
+        public string GetTranslatedPluginDescription()
         {
-            await ZoxideHelper.ValidateAsync(Settings.ZoxideExePath);
+            return Context.API.GetTranslation("flowlauncher_plugin_zoxide_description");
         }
     }
 }
