@@ -19,7 +19,7 @@
 - **右键菜单**：对选中结果使用已启用的命令打开路径（可在设置中增删）
 - **与 zoxide 同步**：成功打开后可后台 `zoxide add`（见各命令上的「成功打开后执行 zoxide add」选项）；若目录已不存在则 `zoxide remove`
 
-> **说明：** 本插件不再提供 [ZoxidePy](https://github.com/WantChane/Flow.Launcher.Plugin.ZoxidePy) 的 `zoxide cd` 功能；请考虑其他方法来向zoxide数据库中添加目录，例如修改注册表集成 `zoxide add` 到资源管理器的右键菜单。
+> **说明：** 本插件不再提供 [ZoxidePy](https://github.com/WantChane/Flow.Launcher.Plugin.ZoxidePy) 的 `z cd` 功能；请考虑其他方法来向zoxide数据库中添加目录，例如修改注册表集成 `zoxide add` 到资源管理器的右键菜单。
 
 ## 环境要求
 
@@ -90,7 +90,7 @@ This plugin invokes `zoxide query` from Flow Launcher, lists directories ranked 
 - **Context menu**: Right-click a result to open the path with another enabled command (add or remove commands in settings)
 - **Zoxide sync**: Optionally run `zoxide add` in the background after a successful open (see each command’s “Run zoxide add after opening path successfully” option); if the directory no longer exists, run `zoxide remove`
 
-> **Note:** This plugin no longer provides the `zoxide cd` functionality of [ZoxidePy](https://github.com/WantChane/Flow.Launcher.Plugin.ZoxidePy); please consider other methods to add directories to the zoxide database, such as modifying the registry to integrate `zoxide add` into the Explorer's right-click menu.
+> **Note:** This plugin no longer provides the `z cd` functionality of [ZoxidePy](https://github.com/WantChane/Flow.Launcher.Plugin.ZoxidePy); please consider other methods to add directories to the zoxide database, such as modifying the registry to integrate `zoxide add` into the Explorer's right-click menu.
 
 ## Prerequisites
 
