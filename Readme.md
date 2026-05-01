@@ -26,6 +26,10 @@
 
 ## 安装
 
+### 通过`Flow.Launcher.Plugin.PluginsManager`安装
+
+执行 `pm install Zoxide`
+
 ### 手动安装
 
 1. 在 [Releases](https://github.com/WantChane/Flow.Launcher.Plugin.Zoxide/releases) 下载最新构建

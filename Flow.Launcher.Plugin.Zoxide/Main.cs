@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace Flow.Launcher.Plugin.Zoxide
 {
-    public class Main : IAsyncPlugin, ISettingProvider, IPluginI18n, IContextMenu
+    public class Main : IAsyncPlugin, ISettingProvider, IPluginI18n, IContextMenu, IAsyncReloadable
     {
         internal static PluginInitContext Context = null!;
 
@@ -60,6 +60,11 @@ namespace Flow.Launcher.Plugin.Zoxide
         public string GetTranslatedPluginTitle()
         {
             return Context.API.GetTranslation("flowlauncher_plugin_zoxide_name");
+        }
+
+        public async Task ReloadDataAsync()
+        {
+            await ZoxideHelper.ValidateAsync(Settings.ZoxideExePath);
         }
     }
 }

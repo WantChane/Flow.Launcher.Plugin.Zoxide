@@ -26,26 +26,22 @@ namespace Flow.Launcher.Plugin.Zoxide.Helper
         /// <returns>如果路径有效且能够获取版本信息，则返回 <c>true</c>；否则返回 <c>false</c></returns>
         public static async Task<bool> ValidateAsync(string zoxidePath)
         {
+            IsPathValid = false;
+            CurrentVersion = null;
             if (string.IsNullOrWhiteSpace(zoxidePath))
             {
-                IsPathValid = false;
-                CurrentVersion = null;
                 return false;
             }
 
             var versionString = await ZoxideVersionAsync(zoxidePath);
             if (string.IsNullOrWhiteSpace(versionString))
             {
-                IsPathValid = false;
-                CurrentVersion = null;
                 return false;
             }
 
             var version = ParseVersion(versionString);
             if (string.IsNullOrWhiteSpace(version))
             {
-                IsPathValid = false;
-                CurrentVersion = null;
                 return false;
             }
 
