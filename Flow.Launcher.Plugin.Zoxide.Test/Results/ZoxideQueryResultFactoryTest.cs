@@ -1,3 +1,4 @@
+using Flow.Launcher.Plugin.Zoxide.Helper;
 using Flow.Launcher.Plugin.Zoxide.Models;
 using Flow.Launcher.Plugin.Zoxide.Results;
 using Moq;
@@ -48,7 +49,7 @@ public class ZoxideQueryResultFactoryTest
         {
             Assert.That(r.Title, Is.EqualTo("repo"));
             Assert.That(r.SubTitle, Is.EqualTo(path));
-            Assert.That(r.IcoPath, Is.EqualTo(Main.Context.CurrentPluginMetadata.IcoPath));
+            Assert.That(r.IcoPath, Is.EqualTo(IconHelper.PluginIcon));
             Assert.That(r.AddSelectedCount, Is.False);
             Assert.That(r.Score, Is.EqualTo(150));
             Assert.That(r.ContextData, Is.EqualTo(path));

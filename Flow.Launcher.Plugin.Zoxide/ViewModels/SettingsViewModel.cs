@@ -129,7 +129,7 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
         {
             var path = ZoxideExePath;
             var success = await ZoxideHelper.ValidateAsync(path).ConfigureAwait(true);
-            var icon = _context.CurrentPluginMetadata.IcoPath;
+            //var icon = _context.CurrentPluginMetadata.IcoPath;
 
             if (success)
             {
@@ -138,7 +138,7 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
                 _context.API.ShowMsg(
                     _context.API.GetTranslation("flowlauncher_plugin_zoxide_msg_test_success"),
                     string.Format(_context.API.GetTranslation("flowlauncher_plugin_zoxide_msg_test_success_detail"), ver),
-                    icon);
+                    IconHelper.OkIcon);
             }
             else
             {

@@ -18,6 +18,7 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_name">名称</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_executable">可执行文件</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_arguments">参数</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_col_command_icon">图标</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_status">状态</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_status_enabled">已启用</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_status_disabled">已禁用</system:String>
@@ -34,12 +35,17 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_name">名称</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_executable">可执行文件</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_arguments">参数</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_icon">图标</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_icon_custom_tooltip">自定义图标的绝对路径</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_zoxide_add">成功打开路径后执行 zoxide add</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_dialog_ok">确定</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_dialog_cancel">取消</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_dialog_browse_title">选择 zoxide.exe</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_dialog_browse_filter">可执行文件 (*.exe)|*.exe</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_dialog_browse_icon_title">选择图标文件</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_dialog_browse_icon_filter">图标文件 (*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.ico)|*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.ico|所有文件 (*.*)|*.*</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success">测试成功</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success_detail">zoxide {0}可用。</system:String>

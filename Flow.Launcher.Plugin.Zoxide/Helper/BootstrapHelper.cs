@@ -45,6 +45,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Helper
             Executable = "explorer.exe",
             Arguments = "\"{path}\"",
             IsEnabled = true,
+            Icon = "folder.png"
         };
 
         private static Command? FindFirstEnabledCommand(ObservableCollection<Command> commands)

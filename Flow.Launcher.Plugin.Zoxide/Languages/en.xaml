@@ -18,6 +18,7 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_name">Name</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_executable">Executable</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_arguments">Arguments</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_col_command_icon">Icon</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_status">Status</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_status_enabled">Enabled</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_status_disabled">Disabled</system:String>
@@ -34,12 +35,17 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_name">Name</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_executable">Executable</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_arguments">Arguments</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_icon">Icon</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_icon_custom_tooltip">Custom icon absolute path</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_zoxide_add">Run zoxide add after opening path successfully</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_dialog_ok">OK</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_dialog_cancel">Cancel</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_dialog_browse_title">Select zoxide.exe</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_dialog_browse_filter">Executables (*.exe)|*.exe</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_dialog_browse_icon_title">Select icon file</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_dialog_browse_icon_filter">Image files (*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.ico)|*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.ico|All files (*.*)|*.*</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success">Test succeeded</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success_detail">zoxide {0} is available.</system:String>

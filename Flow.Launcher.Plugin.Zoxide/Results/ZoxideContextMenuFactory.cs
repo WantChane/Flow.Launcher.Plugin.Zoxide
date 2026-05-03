@@ -11,7 +11,6 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
             if (selectedResult.ContextData is not string path || string.IsNullOrWhiteSpace(path))
                 return [];
 
-            var ico = context.CurrentPluginMetadata.IcoPath;
             var list = new List<Result>();
 
             foreach (var cmd in settings.Commands)
@@ -25,7 +24,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                     Title = command.Name,
                     SubTitle = command.Executable,
                     AddSelectedCount = false,
-                    IcoPath = ico,
+                    IcoPath = IconHelper.ResolveIconPath(command.Icon),
                     Action = ctx =>
                     {
                         var outcome = CommandHelper.TryOpenPath(path, command);

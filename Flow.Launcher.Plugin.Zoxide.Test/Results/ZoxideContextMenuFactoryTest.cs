@@ -1,3 +1,4 @@
+using Flow.Launcher.Plugin.Zoxide.Helper;
 using Flow.Launcher.Plugin.Zoxide.Models;
 using Flow.Launcher.Plugin.Zoxide.Results;
 using Moq;
@@ -63,8 +64,22 @@ public class ZoxideContextMenuFactoryTest
             Assert.That(list[0].SubTitle, Is.EqualTo("1.exe"));
             Assert.That(list[1].Title, Is.EqualTo("Second"));
             Assert.That(list[1].SubTitle, Is.EqualTo("2.exe"));
-            Assert.That(list[0].IcoPath, Is.EqualTo(Main.Context.CurrentPluginMetadata.IcoPath));
-            Assert.That(list[1].IcoPath, Is.EqualTo(Main.Context.CurrentPluginMetadata.IcoPath));
+            Assert.That(list[0].IcoPath, Is.EqualTo(IconHelper.PluginIcon));
+            Assert.That(list[1].IcoPath, Is.EqualTo(IconHelper.PluginIcon));
         }
+    }
+
+    [Test]
+    public void Create_UsesCustomIcon_WhenCommandHasValidIcon()
+    {
+        var path = @"D:\repo";
+        var settings = new Settings { ZoxideExePath = @"C:\z.exe" };
+        settings.Commands.Add(new Command { Name = "Custom", Executable = "c.exe", IsEnabled = true, Icon = "cmd.png" });
+        settings.Commands.Add(new Command { Name = "Default", Executable = "d.exe", IsEnabled = true, Icon = "" });
+
+        var list = ZoxideContextMenuFactory.Create(new Result { ContextData = path }, settings, Main.Context);
+
+        Assert.That(list, Has.Count.EqualTo(2));
+        Assert.That(list[1].IcoPath, Is.EqualTo(IconHelper.PluginIcon));
     }
 }

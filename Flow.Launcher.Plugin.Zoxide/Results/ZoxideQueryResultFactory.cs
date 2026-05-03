@@ -3,6 +3,7 @@ using Flow.Launcher.Plugin.Zoxide.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Flow.Launcher.Plugin.Zoxide.Results
 {
@@ -34,7 +35,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                         SubTitle = string.Format(
                             api.GetTranslation("flowlauncher_plugin_zoxide_query_parse_failed_subtitle"),
                             raw),
-                        IcoPath = ico,
+                        IcoPath = IconHelper.ErrorIcon,
                         Score = 42,
                     }
                 ];
@@ -51,7 +52,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                 {
                     Title = api.GetTranslation("flowlauncher_plugin_zoxide_query_nomatches_title"),
                     SubTitle = api.GetTranslation("flowlauncher_plugin_zoxide_query_nomatches_subtitle"),
-                    IcoPath = ico,
+                    IcoPath = IconHelper.ExclamationIcon,
                     Score = 42,
                 }
             ];
@@ -111,7 +112,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                 {
                     Title = title,
                     SubTitle = subtitle,
-                    IcoPath = ico,
+                    IcoPath = IconHelper.ErrorIcon,
                     Score = 42,
                 }
             ];
@@ -136,21 +137,26 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
             if (entries.Count == 0)
                 return [];
 
+            var defaultCommand = Main.Settings?.Commands
+                .FirstOrDefault(c => c.Name == Main.Settings.DefaultCommand && c.IsEnabled);
+            var ico = IconHelper.ResolveIconPath(defaultCommand?.Icon ?? "");
+
             var list = new List<Result>(entries.Count);
             foreach (var entry in entries)
-                list.Add(FromEntry(entry));
+                list.Add(FromEntry(entry, ico));
 
             return list;
         }
 
-        private static Result FromEntry(ZoxideEntry entry)
+        private static Result FromEntry(ZoxideEntry entry, string ico)
         {
             var path = entry.Path;
+
             return new Result
             {
                 Title = FormatTitle(path),
                 SubTitle = path,
-                IcoPath = Main.Context.CurrentPluginMetadata.IcoPath,
+                IcoPath = ico,
                 AddSelectedCount = false,
                 Score = entry.Score,
                 ContextData = path,
@@ -158,7 +164,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                 Action = context =>
                 {
                     var outcome = CommandHelper.TryOpenPath(path);
-                    CommandHelper.SyncZoxideAfterPathOpen(Main.Settings.ZoxideExePath, path, outcome);
+                    CommandHelper.SyncZoxideAfterPathOpen(Main.Settings!.ZoxideExePath, path, outcome);
                     return true;
                 }
             };

@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Title="{DynamicResource flowlauncher_plugin_zoxide_dialog_command_title}"
         Height="Auto"
-        Width="480"
+        Width="600"
         SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
@@ -21,6 +21,7 @@
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="32" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -80,16 +81,48 @@
         <TextBlock Grid.Row="4"
                    Grid.Column="0"
                    FontWeight="SemiBold"
+                   VerticalAlignment="Top"
+                   Margin="0,0,12,8"
+                   Text="{DynamicResource flowlauncher_plugin_zoxide_lbl_command_icon}" />
+        <StackPanel Grid.Row="4" Grid.Column="1" Margin="0,0,0,8">
+            <ComboBox MinHeight="24"
+                      VerticalContentAlignment="Center"
+                      IsEditable="False"
+                      ItemsSource="{Binding AvailableIcons}"
+                      DisplayMemberPath="DisplayName"
+                      SelectedValuePath="FileName"
+                      SelectedValue="{Binding Icon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Grid Margin="0,4,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"
+                         MinHeight="24"
+                         VerticalContentAlignment="Center"
+                         Margin="0,0,8,0"
+                         ToolTip="{DynamicResource flowlauncher_plugin_zoxide_lbl_command_icon_custom_tooltip}"
+                         Text="{Binding Icon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Column="1"
+                        MinWidth="80"
+                        Content="{DynamicResource flowlauncher_plugin_zoxide_btn_browse}"
+                        Command="{Binding BrowseIconCommand}" />
+            </Grid>
+        </StackPanel>
+
+        <TextBlock Grid.Row="5"
+                   Grid.Column="0"
+                   FontWeight="SemiBold"
                    VerticalAlignment="Center"
                    Margin="0,0,12,8"
                    Text="{DynamicResource flowlauncher_plugin_zoxide_lbl_command_zoxide_add}" />
-        <CheckBox Grid.Row="4"
+        <CheckBox Grid.Row="5"
                   Grid.Column="1"
                   VerticalAlignment="Center"
                   Margin="0,0,0,8"
                   IsChecked="{Binding ZoxideAddOnSuccess, Mode=TwoWay}" />
 
-        <StackPanel Grid.Row="5"
+        <StackPanel Grid.Row="6"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Right"

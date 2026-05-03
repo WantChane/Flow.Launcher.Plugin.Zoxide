@@ -1,7 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Flow.Launcher.Plugin.Zoxide.Helper;
 using Flow.Launcher.Plugin.Zoxide.Models;
+using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 
 namespace Flow.Launcher.Plugin.Zoxide.ViewModels
 {
@@ -23,6 +26,11 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
         [ObservableProperty]
         private bool _zoxideAddOnSuccess = true;
 
+        [ObservableProperty]
+        private string _icon = string.Empty;
+
+        public static IReadOnlyList<IconOption> AvailableIcons => IconOptions.SelectableIcons;
+
         public Command? ResultNewCommand { get; private set; }
 
         public event EventHandler<bool>? CloseRequested;
@@ -36,6 +44,7 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
                 Executable = cmd.Executable;
                 Arguments = cmd.Arguments;
                 ZoxideAddOnSuccess = cmd.ZoxideAddOnSuccess;
+                Icon = cmd.Icon;
             }
         }
 
@@ -51,6 +60,7 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
                 _cmd.Executable = Executable;
                 _cmd.Arguments = Arguments;
                 _cmd.ZoxideAddOnSuccess = ZoxideAddOnSuccess;
+                _cmd.Icon = Icon;
             }
             else
             {
@@ -61,6 +71,7 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
                     Arguments = Arguments,
                     IsEnabled = true,
                     ZoxideAddOnSuccess = ZoxideAddOnSuccess,
+                    Icon = Icon,
                 };
             }
 
@@ -69,5 +80,17 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
 
         [RelayCommand]
         private void Cancel() => CloseRequested?.Invoke(this, false);
+
+        [RelayCommand]
+        private void BrowseIcon()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Title = Main.Context.API.GetTranslation("flowlauncher_plugin_zoxide_dialog_browse_icon_title"),
+                Filter = Main.Context.API.GetTranslation("flowlauncher_plugin_zoxide_dialog_browse_icon_filter")
+            };
+            if (dialog.ShowDialog() == true)
+                Icon = dialog.FileName;
+        }
     }
 }

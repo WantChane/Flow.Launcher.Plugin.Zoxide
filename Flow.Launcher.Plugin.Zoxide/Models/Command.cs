@@ -19,6 +19,9 @@ namespace Flow.Launcher.Plugin.Zoxide.Models
         [ObservableProperty]
         private bool _zoxideAddOnSuccess = true;
 
+        [ObservableProperty]
+        private string _icon = string.Empty;
+
         public static Command Clone(Command source) => new()
         {
             Name = source.Name,
@@ -26,6 +29,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Models
             Arguments = source.Arguments,
             IsEnabled = source.IsEnabled,
             ZoxideAddOnSuccess = source.ZoxideAddOnSuccess,
+            Icon = source.Icon,
         };
 
         public void CopyFrom(Command other)
@@ -35,6 +39,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Models
             Arguments = other.Arguments;
             IsEnabled = other.IsEnabled;
             ZoxideAddOnSuccess = other.ZoxideAddOnSuccess;
+            Icon = other.Icon;
         }
     }
 }

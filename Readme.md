@@ -17,6 +17,7 @@
 - **目录跳转**：根据 zoxide 评分与关键词快速匹配历史目录
 - **可自定义打开方式**：在设置中配置多条命令（终端、编辑器等），使用 `{path}` 占位符
 - **右键菜单**：对选中结果使用已启用的命令打开路径（可在设置中增删）
+- **自定义图标**：每条命令可单独设置图标，支持从内置图标库选择或指定自定义图标路径
 - **与 zoxide 同步**：成功打开后可后台 `zoxide add`（见各命令上的「成功打开后执行 zoxide add」选项）；若目录已不存在则 `zoxide remove`
 
 > **说明：** 本插件不再提供 [ZoxidePy](https://github.com/WantChane/Flow.Launcher.Plugin.ZoxidePy) 的 `z cd` 功能；请考虑其他方法来向zoxide数据库中添加目录，例如修改注册表集成 `zoxide add` 到资源管理器的右键菜单。
@@ -45,7 +46,7 @@
    - 若已在 `PATH` 中，可填写 `zoxide.exe`
    - 否则填写完整路径，例如：`C:\Tools\zoxide.exe`
 2. **命令超时**：等待 zoxide 子进程结束的最长时间（毫秒）
-3. **默认命令与自定义命令**：选择用哪个命令打开目录；可为每条命令设置是否在成功打开后执行 `zoxide add`
+3. **默认命令与自定义命令**：选择用哪个命令打开目录；可为每条命令设置图标（内置图标库或自定义路径）、是否在成功打开后执行 `zoxide add`
 
 默认触发关键字为 **`z`**。
 
@@ -88,6 +89,7 @@ This plugin invokes `zoxide query` from Flow Launcher, lists directories ranked 
 - **Directory jumping**: Quickly match history directories using zoxide’s scores and your keywords
 - **Custom open actions**: Configure multiple commands in settings (terminal, editor, …) with a `{path}` placeholder
 - **Context menu**: Right-click a result to open the path with another enabled command (add or remove commands in settings)
+- **Custom icons**: Each command can have its own icon — choose from built-in options or specify a custom icon path
 - **Zoxide sync**: Optionally run `zoxide add` in the background after a successful open (see each command’s “Run zoxide add after opening path successfully” option); if the directory no longer exists, run `zoxide remove`
 
 > **Note:** This plugin no longer provides the `z cd` functionality of [ZoxidePy](https://github.com/WantChane/Flow.Launcher.Plugin.ZoxidePy); please consider other methods to add directories to the zoxide database, such as modifying the registry to integrate `zoxide add` into the Explorer's right-click menu.
@@ -116,7 +118,7 @@ Execute `pm install Zoxide by WantChane`
    - If on `PATH`, you can use `zoxide.exe`
    - Otherwise use a full path, e.g. `C:\Tools\zoxide.exe`
 2. **Command timeout**: Maximum time to wait for the zoxide child process (milliseconds)
-3. **Default & custom commands**: Choose how directories are opened; optionally enable `zoxide add` after a successful open per command
+3. **Default & custom commands**: Choose how directories are opened; set a per-command icon (built-in or custom path), and optionally enable `zoxide add` after a successful open
 
 The default action keyword is **`z`**.
 

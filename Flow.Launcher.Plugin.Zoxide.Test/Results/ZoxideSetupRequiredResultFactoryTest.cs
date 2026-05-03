@@ -1,3 +1,4 @@
+using Flow.Launcher.Plugin.Zoxide.Helper;
 using Flow.Launcher.Plugin.Zoxide.Results;
 using Moq;
 
@@ -37,8 +38,8 @@ public class ZoxideSetupRequiredResultFactoryTest
         using (Assert.EnterMultipleScope())
         {
             Assert.That(results, Has.Count.EqualTo(2));
-            Assert.That(results[0].IcoPath, Is.EqualTo(Main.Context.CurrentPluginMetadata.IcoPath));
-            Assert.That(results[1].IcoPath, Is.EqualTo(Main.Context.CurrentPluginMetadata.IcoPath));
+            Assert.That(results[0].IcoPath, Is.EqualTo(IconHelper.SettingsIcon));
+            Assert.That(results[1].IcoPath, Is.EqualTo(IconHelper.BrowserIcon));
             Assert.That(results[0].Score, Is.GreaterThan(results[1].Score));
         }
     }
