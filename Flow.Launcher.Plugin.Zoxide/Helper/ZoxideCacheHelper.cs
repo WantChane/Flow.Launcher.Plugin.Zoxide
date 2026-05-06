@@ -11,6 +11,16 @@ namespace Flow.Launcher.Plugin.Zoxide.Helper
     {
         private const string CacheKey = "zoxide_all_data";
 
+        public static async Task ClearCache()
+        {
+            var _context = Main.Context;
+            var cacheDirectory = _context.CurrentPluginMetadata.PluginCacheDirectoryPath;
+            var cache = await _context.API.LoadCacheBinaryStorageAsync(CacheKey, cacheDirectory, new CachedZoxideEntries());
+            cache.CachedAt = DateTime.UtcNow;
+            cache.Entries = [];
+            await _context.API.SaveCacheBinaryStorageAsync<CachedZoxideEntries>(CacheKey, cacheDirectory);
+        }
+
         public static async Task<IReadOnlyList<ZoxideEntry>> GetEntriesAsync(
             string? searchTerms,
             CancellationToken token)

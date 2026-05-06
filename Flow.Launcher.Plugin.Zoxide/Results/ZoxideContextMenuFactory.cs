@@ -29,6 +29,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                     {
                         var outcome = CommandHelper.TryOpenPath(path, command);
                         CommandHelper.SyncZoxideAfterPathOpen(settings.ZoxideExePath, path, outcome, command);
+                        _ = ZoxideCacheHelper.ClearCache();
                         return true;
                     }
                 });
