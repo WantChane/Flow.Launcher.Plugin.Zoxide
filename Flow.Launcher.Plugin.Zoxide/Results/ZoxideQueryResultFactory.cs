@@ -11,11 +11,10 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
     {
         public static List<Result> FromQueryExecution(ZoxideCommandExecutionResult execution)
         {
-            var api = Main.Context.API;
-            var ico = Main.Context.CurrentPluginMetadata.IcoPath;
+            var _api = Main.Context.API;
 
             if (!execution.IsSuccess)
-                return FromExecutionFailure(execution, api, ico);
+                return FromExecutionFailure(execution);
 
             var raw = execution.StandardOutput;
             var entries = ZoxideHelper.ParseQueries(raw);
@@ -23,7 +22,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                 return FromEntries(entries);
 
             if (string.IsNullOrWhiteSpace(raw))
-                return NoMatchesResults(api, ico);
+                return NoMatchesResults();
 
             if (HasLineWithVisibleContent(raw))
             {
@@ -31,78 +30,81 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                 [
                     new Result
                     {
-                        Title = api.GetTranslation("flowlauncher_plugin_zoxide_query_parse_failed_title"),
+                        Title = _api.GetTranslation("flowlauncher_plugin_zoxide_query_parse_failed_title"),
                         SubTitle = string.Format(
-                            api.GetTranslation("flowlauncher_plugin_zoxide_query_parse_failed_subtitle"),
+                            _api.GetTranslation("flowlauncher_plugin_zoxide_query_parse_failed_subtitle"),
                             raw),
                         IcoPath = IconHelper.ErrorIcon,
+                        AddSelectedCount = false,
                         Score = 42,
                     }
                 ];
             }
 
-            return NoMatchesResults(api, ico);
+            return NoMatchesResults();
         }
 
-        private static List<Result> NoMatchesResults(IPublicAPI api, string ico)
+        internal static List<Result> NoMatchesResults()
         {
+            var _api = Main.Context.API;
             return
             [
                 new Result
                 {
-                    Title = api.GetTranslation("flowlauncher_plugin_zoxide_query_nomatches_title"),
-                    SubTitle = api.GetTranslation("flowlauncher_plugin_zoxide_query_nomatches_subtitle"),
+                    Title = _api.GetTranslation("flowlauncher_plugin_zoxide_query_nomatches_title"),
+                    SubTitle = _api.GetTranslation("flowlauncher_plugin_zoxide_query_nomatches_subtitle"),
                     IcoPath = IconHelper.ExclamationIcon,
+                    AddSelectedCount = false,
                     Score = 42,
                 }
             ];
         }
 
         private static List<Result> FromExecutionFailure(
-            ZoxideCommandExecutionResult execution,
-            IPublicAPI api,
-            string ico)
+            ZoxideCommandExecutionResult execution)
         {
             string title;
             string subtitle;
 
+            var _api = Main.Context.API;
+
             switch (execution.Type)
             {
                 case ZoxideCommandExecutionType.TimedOut:
-                    title = api.GetTranslation("flowlauncher_plugin_zoxide_query_timeout_title");
-                    subtitle = api.GetTranslation("flowlauncher_plugin_zoxide_query_timeout_subtitle");
+                    title = _api.GetTranslation("flowlauncher_plugin_zoxide_query_timeout_title");
+                    subtitle = _api.GetTranslation("flowlauncher_plugin_zoxide_query_timeout_subtitle");
                     break;
                 case ZoxideCommandExecutionType.Cancelled:
-                    title = api.GetTranslation("flowlauncher_plugin_zoxide_query_cancelled_title");
-                    subtitle = api.GetTranslation("flowlauncher_plugin_zoxide_query_cancelled_subtitle");
+                    title = _api.GetTranslation("flowlauncher_plugin_zoxide_query_cancelled_title");
+                    subtitle = _api.GetTranslation("flowlauncher_plugin_zoxide_query_cancelled_subtitle");
                     break;
                 case ZoxideCommandExecutionType.NonZeroExit:
                     title = string.Format(
-                        api.GetTranslation("flowlauncher_plugin_zoxide_query_exit_title"),
+                        _api.GetTranslation("flowlauncher_plugin_zoxide_query_exit_title"),
                         execution.ExitCode ?? -1);
                     subtitle = string.IsNullOrEmpty(execution.StandardError)
-                        ? api.GetTranslation("flowlauncher_plugin_zoxide_query_exit_subtitle_no_stderr")
+                        ? _api.GetTranslation("flowlauncher_plugin_zoxide_query_exit_subtitle_no_stderr")
                         : string.Format(
-                            api.GetTranslation("flowlauncher_plugin_zoxide_query_exit_subtitle_stderr"),
+                            _api.GetTranslation("flowlauncher_plugin_zoxide_query_exit_subtitle_stderr"),
                             execution.StandardError);
                     break;
                 case ZoxideCommandExecutionType.ProcessStartFailed:
-                    title = api.GetTranslation("flowlauncher_plugin_zoxide_query_start_failed_title");
-                    subtitle = api.GetTranslation("flowlauncher_plugin_zoxide_query_start_failed_subtitle");
+                    title = _api.GetTranslation("flowlauncher_plugin_zoxide_query_start_failed_title");
+                    subtitle = _api.GetTranslation("flowlauncher_plugin_zoxide_query_start_failed_subtitle");
                     break;
                 case ZoxideCommandExecutionType.InvalidZoxidePath:
-                    title = api.GetTranslation("flowlauncher_plugin_zoxide_query_invalid_path_title");
-                    subtitle = api.GetTranslation("flowlauncher_plugin_zoxide_query_invalid_path_subtitle");
+                    title = _api.GetTranslation("flowlauncher_plugin_zoxide_query_invalid_path_title");
+                    subtitle = _api.GetTranslation("flowlauncher_plugin_zoxide_query_invalid_path_subtitle");
                     break;
                 case ZoxideCommandExecutionType.Exception:
-                    title = api.GetTranslation("flowlauncher_plugin_zoxide_query_exception_title");
+                    title = _api.GetTranslation("flowlauncher_plugin_zoxide_query_exception_title");
                     subtitle = string.Format(
-                        api.GetTranslation("flowlauncher_plugin_zoxide_query_exception_subtitle"),
+                        _api.GetTranslation("flowlauncher_plugin_zoxide_query_exception_subtitle"),
                         execution.ExceptionMessage ?? string.Empty);
                     break;
                 default:
-                    title = api.GetTranslation("flowlauncher_plugin_zoxide_query_unknown_failure_title");
-                    subtitle = api.GetTranslation("flowlauncher_plugin_zoxide_query_unknown_failure_subtitle");
+                    title = _api.GetTranslation("flowlauncher_plugin_zoxide_query_unknown_failure_title");
+                    subtitle = _api.GetTranslation("flowlauncher_plugin_zoxide_query_unknown_failure_subtitle");
                     break;
             }
 
@@ -113,6 +115,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                     Title = title,
                     SubTitle = subtitle,
                     IcoPath = IconHelper.ErrorIcon,
+                    AddSelectedCount = false,
                     Score = 42,
                 }
             ];

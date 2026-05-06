@@ -10,6 +10,8 @@ namespace Flow.Launcher.Plugin.Zoxide.Models
 
         public int CommandTimeoutMs { get; set; } = 1000;
 
+        public int CacheExpirationSeconds { get; set; } = 0;
+
         public ObservableCollection<Command> Commands { get; set; } = [];
     }
 }

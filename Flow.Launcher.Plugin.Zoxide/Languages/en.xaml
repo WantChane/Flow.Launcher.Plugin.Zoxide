@@ -9,6 +9,9 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_textblock_command_timeout">Command timeout (ms)</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_command_timeout">Maximum time to wait for the zoxide child process to finish (milliseconds).</system:String>
 
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_cache_expiration">Cache expiration (s)</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_cache_expiration">0: no cache, run `zoxide query` each time. >0: cache zoxide all data for N seconds, filter via Flow Launcher.</system:String>
+
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_browse">Browse…</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_test">Test path</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_save">Save</system:String>

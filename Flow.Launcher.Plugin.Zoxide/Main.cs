@@ -22,6 +22,18 @@ namespace Flow.Launcher.Plugin.Zoxide
             if (string.IsNullOrWhiteSpace(Settings.ZoxideExePath) || !ZoxideHelper.IsPathValid)
                 return ZoxideSetupRequiredResultFactory.Create();
 
+            if (Settings.CacheExpirationSeconds > 0)
+            {
+                var entries = await ZoxideCacheHelper.GetEntriesAsync(
+                    query.Search,
+                    token);
+                if (entries.Count == 0)
+                {
+                    return ZoxideQueryResultFactory.NoMatchesResults();
+                }
+                return ZoxideQueryResultFactory.FromEntries(entries);
+            }
+
             var execution = await ZoxideHelper.ZoxideQueryAsync(
                 Settings.ZoxideExePath,
                 query.Search,
@@ -34,6 +46,20 @@ namespace Flow.Launcher.Plugin.Zoxide
         {
             if (string.IsNullOrWhiteSpace(Settings.ZoxideExePath) || !ZoxideHelper.IsPathValid)
                 return [.. ZoxideSetupRequiredResultFactory.Create().Select(r => DialogJumpResult.From(r, string.Empty))];
+
+            if (Settings.CacheExpirationSeconds > 0)
+            {
+                var entries = await ZoxideCacheHelper.GetEntriesAsync(
+                    query.Search,
+                    token);
+                if (entries.Count == 0)
+                {
+                    var noMatch = ZoxideQueryResultFactory.NoMatchesResults();
+                    return [.. noMatch.Select(r => DialogJumpResult.From(r, string.Empty))];
+                }
+                var cachedResults = ZoxideQueryResultFactory.FromEntries(entries);
+                return [.. cachedResults.Select(r => DialogJumpResult.From(r, r.CopyText))];
+            }
 
             var execution = await ZoxideHelper.ZoxideQueryAsync(
                 Settings.ZoxideExePath,

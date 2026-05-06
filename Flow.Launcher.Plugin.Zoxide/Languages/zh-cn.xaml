@@ -9,6 +9,9 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_textblock_command_timeout">命令超时（毫秒）</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_command_timeout">等待 zoxide 子进程结束的最长时间（毫秒）。</system:String>
 
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_cache_expiration">缓存过期时间（秒）</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_cache_expiration">0：不缓存，每次查询都执行zoxide query命令；>0：缓存zoxide所有数据N秒并通过Flow Launcher过滤结果。</system:String>
+
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_browse">浏览…</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_test">测试路径</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_save">保存</system:String>

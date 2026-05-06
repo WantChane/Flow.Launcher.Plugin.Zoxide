@@ -21,6 +21,11 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
             30_000, 60_000, 120_000, 180_000, 300_000,
         ];
 
+        private static readonly int[] s_cacheExpirationPresets =
+        [
+            0, 30, 60, 120, 300, 600, 1800, 3600,
+        ];
+
         private readonly Settings _settings;
         private readonly PluginInitContext _context;
         private string? _lastSuccessfulTestPath;
@@ -37,6 +42,13 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
                 settings.CommandTimeoutMs > 0 ? settings.CommandTimeoutMs : 1000);
             RebuildCommandTimeoutOptions(timeout);
             CommandTimeoutMs = timeout;
+
+            var cacheSecs = settings.CacheExpirationSeconds;
+            if (Array.IndexOf(s_cacheExpirationPresets, cacheSecs) < 0)
+                cacheSecs = 0;
+            foreach (var sec in s_cacheExpirationPresets)
+                CacheExpirationOptions.Add(sec);
+            CacheExpirationSeconds = cacheSecs;
 
             _settings.Commands.CollectionChanged += OnCommandsCollectionChanged;
             foreach (var cmd in _settings.Commands)
@@ -78,6 +90,9 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
         private int _commandTimeoutMs = 1000;
 
         [ObservableProperty]
+        private int _cacheExpirationSeconds;
+
+        [ObservableProperty]
         [NotifyCanExecuteChangedFor(
             nameof(DeleteCustomCommandCommand),
             nameof(DisableSelectedCommand))]
@@ -87,6 +102,8 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
 
         public ObservableCollection<int> CommandTimeoutOptions { get; } = [];
 
+        public ObservableCollection<int> CacheExpirationOptions { get; } = [];
+
         partial void OnDefaultCommandChanged(string value)
         {
             _settings.DefaultCommand = value;
@@ -95,6 +112,11 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
         partial void OnCommandTimeoutMsChanged(int value)
         {
             _settings.CommandTimeoutMs = value;
+        }
+
+        partial void OnCacheExpirationSecondsChanged(int value)
+        {
+            _settings.CacheExpirationSeconds = value;
         }
 
         private void RebuildCommandTimeoutOptions(int selectedMs)

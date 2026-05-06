@@ -62,7 +62,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Helper
             CancellationToken cancellationToken = default)
         {
             IReadOnlyList<string> args = string.IsNullOrWhiteSpace(query)
-                ? ["query", "-l", "-s"]
+                ? ["query", "-l", "-s", "-a"]
                 : ["query", "-l", "-s", .. query.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries)];
 
             return ExecuteCommandAsync(zoxidePath, args, cancellationToken);

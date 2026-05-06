@@ -18,6 +18,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
@@ -97,13 +98,40 @@
                       SelectedItem="{Binding CommandTimeoutMs, Mode=TwoWay}" />
         </Grid>
 
-        <TextBlock Grid.Row="4"
+        <Grid Grid.Row="4"
+              Margin="{StaticResource SettingPanelItemTopBottomMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       FontWeight="SemiBold"
+                       VerticalAlignment="Center"
+                       Margin="{StaticResource SettingPanelItemTopBottomMargin}"
+                       Text="{DynamicResource flowlauncher_plugin_zoxide_textblock_cache_expiration}" />
+            <ComboBox Grid.Row="1"
+                      Grid.Column="0"
+                      MinHeight="24"
+                      MinWidth="120"
+                      VerticalContentAlignment="Center"
+                      IsEditable="False"
+                      ToolTip="{DynamicResource flowlauncher_plugin_zoxide_tooltip_cache_expiration}"
+                      ItemsSource="{Binding CacheExpirationOptions}"
+                      SelectedItem="{Binding CacheExpirationSeconds, Mode=TwoWay}" />
+        </Grid>
+
+        <TextBlock Grid.Row="5"
                    FontWeight="SemiBold"
                    VerticalAlignment="Center"
                    Margin="{StaticResource SettingPanelItemTopBottomMargin}"
                    Text="{DynamicResource flowlauncher_plugin_zoxide_textblock_commands}" />
 
-        <ListView Grid.Row="5"
+        <ListView Grid.Row="6"
                   Margin="{StaticResource SettingPanelItemTopBottomMargin}"
                   SelectionMode="Single"
                   ItemsSource="{Binding Commands}"
@@ -149,7 +177,7 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Row="6"
+        <StackPanel Grid.Row="7"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
                     Margin="{StaticResource SettingPanelItemTopBottomMargin}">
@@ -170,7 +198,7 @@
                     Command="{Binding DisableSelectedCommand}" />
         </StackPanel>
 
-        <StackPanel Grid.Row="7"
+        <StackPanel Grid.Row="8"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
                     Margin="{StaticResource SettingPanelItemTopBottomMargin}">

@@ -17,6 +17,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                     Title = api.GetTranslation("flowlauncher_plugin_zoxide_result_setup_title"),
                     SubTitle = api.GetTranslation("flowlauncher_plugin_zoxide_result_setup_subtitle"),
                     IcoPath = IconHelper.SettingsIcon,
+                    AddSelectedCount = false,
                     Score = 42,
                     Action = _ =>
                     {
@@ -29,6 +30,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                     Title = api.GetTranslation("flowlauncher_plugin_zoxide_result_install_title"),
                     SubTitle = api.GetTranslation("flowlauncher_plugin_zoxide_result_install_subtitle"),
                     IcoPath = IconHelper.BrowserIcon,
+                    AddSelectedCount = false,
                     Score = 41,
                     Action = _ =>
                     {
