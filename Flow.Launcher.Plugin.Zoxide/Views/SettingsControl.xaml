@@ -37,7 +37,7 @@
                      MinHeight="24"
                      VerticalContentAlignment="Center"
                      Margin="{StaticResource SettingPanelItemRightMargin}"
-                     Text="{Binding ZoxideExePath, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                     Text="{Binding Settings.ZoxideExePath, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
             <Button Grid.Column="2"
                     MinWidth="100"
                     Content="{DynamicResource flowlauncher_plugin_zoxide_btn_browse}"
@@ -64,7 +64,8 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0"
                        Grid.Column="0"
@@ -75,27 +76,44 @@
             <TextBlock Grid.Row="0"
                        Grid.Column="1"
                        FontWeight="SemiBold"
+                       HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Margin="{StaticResource SettingPanelItemTopBottomMargin}"
                        Text="{DynamicResource flowlauncher_plugin_zoxide_textblock_command_timeout}" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="2"
+                       FontWeight="SemiBold"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Margin="{StaticResource SettingPanelItemTopBottomMargin}"
+                       Text="{DynamicResource flowlauncher_plugin_zoxide_textblock_cache_expiration}" />
             <ComboBox Grid.Row="1"
                       Grid.Column="0"
                       MinHeight="24"
+                      MinWidth="80"
                       Margin="{StaticResource SettingPanelItemTopBottomMargin}"
                       VerticalContentAlignment="Center"
                       IsEditable="False"
                       ItemsSource="{Binding EnabledCommandNames}"
-                      SelectedItem="{Binding DefaultCommand, Mode=TwoWay}" />
-            <ComboBox Grid.Row="1"
-                      Grid.Column="1"
-                      MinHeight="24"
-                      MinWidth="120"
-                      Margin="{StaticResource SettingPanelItemTopBottomMargin}"
-                      VerticalContentAlignment="Center"
-                      IsEditable="False"
-                      ToolTip="{DynamicResource flowlauncher_plugin_zoxide_tooltip_command_timeout}"
-                      ItemsSource="{Binding CommandTimeoutOptions}"
-                      SelectedItem="{Binding CommandTimeoutMs, Mode=TwoWay}" />
+                      SelectedItem="{Binding Settings.DefaultCommand, Mode=TwoWay}" />
+            <TextBox Grid.Row="1"
+                     Grid.Column="1"
+                     MinHeight="24"
+                     MinWidth="80"
+                     HorizontalAlignment="Center"
+                     Margin="{StaticResource SettingPanelItemTopBottomMargin}"
+                     VerticalContentAlignment="Center"
+                     ToolTip="{DynamicResource flowlauncher_plugin_zoxide_tooltip_command_timeout}"
+                     Text="{Binding Settings.CommandTimeoutMs, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+            <TextBox Grid.Row="1"
+                     Grid.Column="2"
+                     MinHeight="24"
+                     MinWidth="80"
+                     HorizontalAlignment="Right"
+                     Margin="{StaticResource SettingPanelItemTopBottomMargin}"
+                     VerticalContentAlignment="Center"
+                     ToolTip="{DynamicResource flowlauncher_plugin_zoxide_tooltip_cache_expiration}"
+                     Text="{Binding Settings.CacheExpirationSeconds, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
         </Grid>
 
         <Grid Grid.Row="4"
@@ -106,23 +124,52 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0"
                        Grid.Column="0"
+                       Grid.ColumnSpan="3"
                        FontWeight="SemiBold"
                        VerticalAlignment="Center"
                        Margin="{StaticResource SettingPanelItemTopBottomMargin}"
-                       Text="{DynamicResource flowlauncher_plugin_zoxide_textblock_cache_expiration}" />
-            <ComboBox Grid.Row="1"
-                      Grid.Column="0"
-                      MinHeight="24"
-                      MinWidth="120"
-                      VerticalContentAlignment="Center"
-                      IsEditable="False"
-                      ToolTip="{DynamicResource flowlauncher_plugin_zoxide_tooltip_cache_expiration}"
-                      ItemsSource="{Binding CacheExpirationOptions}"
-                      SelectedItem="{Binding CacheExpirationSeconds, Mode=TwoWay}" />
+                       Text="{DynamicResource flowlauncher_plugin_zoxide_textblock_path_truncation}" />
+            <StackPanel Grid.Row="1"
+                        Grid.Column="0"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           Margin="{StaticResource SettingPanelItemRightMargin}"
+                           Text="{DynamicResource flowlauncher_plugin_zoxide_checkbox_fish_style}" />
+                <CheckBox MinHeight="24"
+                          VerticalAlignment="Center"
+                          IsChecked="{Binding Settings.FishStyleEnabled, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           Margin="{StaticResource SettingPanelItemRightMargin}"
+                           Text="{DynamicResource flowlauncher_plugin_zoxide_textblock_truncation_length}" />
+                <TextBox MinHeight="24"
+                         MinWidth="80"
+                         VerticalContentAlignment="Center"
+                         ToolTip="{DynamicResource flowlauncher_plugin_zoxide_tooltip_truncation_length}"
+                         Text="{Binding Settings.PathTruncationLength, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1"
+                        Grid.Column="2"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           Margin="{StaticResource SettingPanelItemRightMargin}"
+                           Text="{DynamicResource flowlauncher_plugin_zoxide_textblock_truncation_symbol}" />
+                <TextBox MinHeight="24"
+                         MinWidth="80"
+                         VerticalContentAlignment="Center"
+                         ToolTip="{DynamicResource flowlauncher_plugin_zoxide_tooltip_truncation_symbol}"
+                         Text="{Binding Settings.TruncationSymbol, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+            </StackPanel>
         </Grid>
 
         <TextBlock Grid.Row="5"
@@ -134,7 +181,7 @@
         <ListView Grid.Row="6"
                   Margin="{StaticResource SettingPanelItemTopBottomMargin}"
                   SelectionMode="Single"
-                  ItemsSource="{Binding Commands}"
+                  ItemsSource="{Binding Settings.Commands}"
                   SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
                   Style="{StaticResource {x:Static GridView.GridViewStyleKey}}"
                   BorderBrush="DarkGray"

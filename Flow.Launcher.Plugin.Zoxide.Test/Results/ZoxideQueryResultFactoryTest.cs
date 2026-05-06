@@ -48,7 +48,7 @@ public class ZoxideQueryResultFactoryTest
         using (Assert.EnterMultipleScope())
         {
             Assert.That(r.Title, Is.EqualTo("repo"));
-            Assert.That(r.SubTitle, Is.EqualTo(path));
+            Assert.That(r.SubTitle, Is.EqualTo(@"D:\Documents\Projects"));
             Assert.That(r.IcoPath, Is.EqualTo(IconHelper.PluginIcon));
             Assert.That(r.AddSelectedCount, Is.False);
             Assert.That(r.Score, Is.EqualTo(150));

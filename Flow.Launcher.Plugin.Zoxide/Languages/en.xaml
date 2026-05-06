@@ -7,7 +7,7 @@
 
     <system:String x:Key="flowlauncher_plugin_zoxide_textblock_zoxideexepath">Path to zoxide.exe</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_textblock_command_timeout">Command timeout (ms)</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_command_timeout">Maximum time to wait for the zoxide child process to finish (milliseconds).</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_command_timeout">Maximum wait time for the zoxide process to complete (milliseconds).</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_textblock_cache_expiration">Cache expiration (s)</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_cache_expiration">0: no cache, run `zoxide query` each time. >0: cache zoxide all data for N seconds, filter via Flow Launcher.</system:String>
@@ -21,7 +21,7 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_name">Name</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_executable">Executable</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_arguments">Arguments</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_col_command_icon">Icon</system:String>
+
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_status">Status</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_status_enabled">Enabled</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_status_disabled">Disabled</system:String>
@@ -40,7 +40,7 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_arguments">Arguments</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_icon">Icon</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_icon_custom_tooltip">Custom icon absolute path</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_zoxide_add">Run zoxide add after opening path successfully</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_lbl_command_zoxide_add">Automatically run `zoxide add` after opening the path</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_dialog_ok">OK</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_dialog_cancel">Cancel</system:String>
 
@@ -59,7 +59,7 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_command_default_name">Open with File Explorer</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_result_setup_title">Configure path to zoxide.exe</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_result_setup_subtitle">Settings → Plugins → Zoxide: set a valid zoxide.exe path and save.</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_result_setup_subtitle">Go to Settings → Plugins → Zoxide, set a valid zoxide.exe path, and save.</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_result_install_title">Install zoxide</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_result_install_subtitle">Open the official zoxide repository in your browser</system:String>
 
@@ -67,7 +67,7 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_query_nomatches_subtitle">zoxide has no entries matching the current query</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_query_parse_failed_title">Could not parse zoxide output</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_query_parse_failed_subtitle">The output format is unexpected; check your zoxide version. Raw snippet: {0}</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_parse_failed_subtitle">The output format was not recognized; check your zoxide version. Raw snippet: {0}</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_query_timeout_title">zoxide query timed out</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_query_timeout_subtitle">The child process did not finish in time. Try again later or increase the timeout.</system:String>
@@ -80,7 +80,7 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_query_exit_subtitle_stderr">Standard error: {0}</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_query_start_failed_title">Could not start zoxide</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_query_start_failed_subtitle">Process.Start returned null. Check the executable path and permissions.</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_start_failed_subtitle">Failed to start the zoxide process. Check the executable path and permissions.</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_query_invalid_path_title">Invalid zoxide path</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_query_invalid_path_subtitle">The executable path is empty or invalid.</system:String>
@@ -90,4 +90,11 @@
 
     <system:String x:Key="flowlauncher_plugin_zoxide_query_unknown_failure_title">zoxide query failed</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_query_unknown_failure_subtitle">An unknown error occurred.</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_path_truncation">Path truncation</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_checkbox_fish_style">Fish style</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_truncation_length">Truncation length</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_truncation_symbol">Truncation symbol</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_truncation_length">0 = full path. Fish on: each parent dir truncated to first N chars (leaf always full). Fish off: keep last N path components from end.</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_truncation_symbol">When Fish style is off, replaces the truncated path prefix with this symbol.</system:String>
 </ResourceDictionary>

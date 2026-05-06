@@ -1,16 +1,30 @@
-﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace Flow.Launcher.Plugin.Zoxide.Models
 {
-    public class Settings
+    public partial class Settings : ObservableObject
     {
-        public string ZoxideExePath { get; set; } = string.Empty;
+        [ObservableProperty]
+        private string _zoxideExePath = string.Empty;
 
-        public string DefaultCommand { get; set; } = string.Empty;
+        [ObservableProperty]
+        private string _defaultCommand = string.Empty;
 
-        public int CommandTimeoutMs { get; set; } = 1000;
+        [ObservableProperty]
+        private int _commandTimeoutMs = 1000;
 
-        public int CacheExpirationSeconds { get; set; } = 0;
+        [ObservableProperty]
+        private int _cacheExpirationSeconds;
+
+        [ObservableProperty]
+        private bool _fishStyleEnabled;
+
+        [ObservableProperty]
+        private int _pathTruncationLength;
+
+        [ObservableProperty]
+        private string _truncationSymbol = "…";
 
         public ObservableCollection<Command> Commands { get; set; } = [];
     }

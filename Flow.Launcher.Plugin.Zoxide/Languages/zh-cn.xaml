@@ -7,10 +7,10 @@
 
     <system:String x:Key="flowlauncher_plugin_zoxide_textblock_zoxideexepath">zoxide.exe 路径</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_textblock_command_timeout">命令超时（毫秒）</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_command_timeout">等待 zoxide 子进程结束的最长时间（毫秒）。</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_command_timeout">zoxide 进程的最长等待时间（毫秒）。</system:String>
 
-    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_cache_expiration">缓存过期时间（秒）</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_cache_expiration">0：不缓存，每次查询都执行zoxide query命令；>0：缓存zoxide所有数据N秒并通过Flow Launcher过滤结果。</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_cache_expiration">缓存有效期（秒）</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_cache_expiration">0：不缓存，每次查询均执行 zoxide query；>0：缓存全部 zoxide 数据 N 秒，由 Flow Launcher 筛选结果。</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_browse">浏览…</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_test">测试路径</system:String>
@@ -21,11 +21,11 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_name">名称</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_executable">可执行文件</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_arguments">参数</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_col_command_icon">图标</system:String>
+
     <system:String x:Key="flowlauncher_plugin_zoxide_col_command_status">状态</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_status_enabled">已启用</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_status_disabled">已禁用</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_btn_add_command">增加</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_btn_add_command">添加</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_delete_command">删除</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_modify_command">修改</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_btn_move_command_up">上移</system:String>
@@ -51,20 +51,20 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_dialog_browse_icon_filter">图标文件 (*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.ico)|*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.ico|所有文件 (*.*)|*.*</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success">测试成功</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success_detail">zoxide {0}可用。</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_success_detail">zoxide {0} 可用。</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure">测试失败</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure_detail_nopath">请先配置 zoxide.exe 的路径。</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure_detail_other">无法运行 {0} ,请确认文件存在且为有效的 zoxide 可执行文件。</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_msg_test_failure_detail_other">无法运行 {0}，请确认文件存在且为有效的 zoxide 可执行文件。</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_command_default_name">使用文件资源管理器打开</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_result_setup_title">配置 zoxide.exe 路径</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_result_setup_subtitle">设置->插件->Zoxide，填写有效的 zoxide.exe 路径并保存</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_result_setup_subtitle">前往 设置 → 插件 → Zoxide，设置 zoxide.exe 路径并保存</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_result_install_title">安装 zoxide</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_result_install_subtitle">在浏览器中打开 zoxide 官方仓库</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_query_nomatches_title">未找到匹配的目录</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_query_nomatches_subtitle">zoxide 无符合当前关键词的条目</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_nomatches_subtitle">zoxide 中未找到匹配当前关键词的条目</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_query_parse_failed_title">无法解析 zoxide 输出</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_query_parse_failed_subtitle">输出格式与预期不符，请检查 zoxide 版本。原始片段：{0}</system:String>
@@ -80,7 +80,7 @@
     <system:String x:Key="flowlauncher_plugin_zoxide_query_exit_subtitle_stderr">标准错误：{0}</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_query_start_failed_title">无法启动 zoxide</system:String>
-    <system:String x:Key="flowlauncher_plugin_zoxide_query_start_failed_subtitle">Process.Start 返回空，请检查可执行文件路径与权限</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_query_start_failed_subtitle">无法启动 zoxide，请检查可执行文件路径与权限</system:String>
 
     <system:String x:Key="flowlauncher_plugin_zoxide_query_invalid_path_title">zoxide 路径无效</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_query_invalid_path_subtitle">可执行文件路径为空或无效</system:String>
@@ -90,4 +90,11 @@
 
     <system:String x:Key="flowlauncher_plugin_zoxide_query_unknown_failure_title">zoxide 查询失败</system:String>
     <system:String x:Key="flowlauncher_plugin_zoxide_query_unknown_failure_subtitle">发生未知错误</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_path_truncation">路径截断</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_checkbox_fish_style">Fish 风格</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_truncation_length">截断长度</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_textblock_truncation_symbol">截断符号</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_truncation_length">0 = 全路径。Fish 开：各父目录截取前 N 字符，末层全显。Fish 关：保留最后 N 层路径。</system:String>
+    <system:String x:Key="flowlauncher_plugin_zoxide_tooltip_truncation_symbol">Fish 风格关闭时，用此符号替代被截断的路径前缀。</system:String>
 </ResourceDictionary>

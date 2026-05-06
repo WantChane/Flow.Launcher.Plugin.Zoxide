@@ -1,11 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Flow.Launcher.Plugin.Zoxide.Helper;
 using Flow.Launcher.Plugin.Zoxide.Models;
 using Flow.Launcher.Plugin.Zoxide.Views;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -15,41 +14,22 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
 {
     public partial class SettingsViewModel : ObservableObject, IDisposable
     {
-        private static readonly int[] s_commandTimeoutPresets =
-        [
-            100, 250, 500, 750, 1000, 1500, 2000, 3000, 5000, 7500, 10000, 15000,
-            30_000, 60_000, 120_000, 180_000, 300_000,
-        ];
-
-        private static readonly int[] s_cacheExpirationPresets =
-        [
-            0, 30, 60, 120, 300, 600, 1800, 3600,
-        ];
-
         private readonly Settings _settings;
         private readonly PluginInitContext _context;
         private string? _lastSuccessfulTestPath;
         private bool _disposed;
 
+        public Settings Settings => _settings;
+
         public SettingsViewModel(Settings settings, PluginInitContext context)
         {
             _settings = settings;
             _context = context;
-            ZoxideExePath = settings.ZoxideExePath;
-            DefaultCommand = settings.DefaultCommand;
 
-            var timeout = ZoxideHelper.NormalizeCommandTimeoutMs(
-                settings.CommandTimeoutMs > 0 ? settings.CommandTimeoutMs : 1000);
-            RebuildCommandTimeoutOptions(timeout);
-            CommandTimeoutMs = timeout;
+            if (_settings.CommandTimeoutMs <= 0)
+                _settings.CommandTimeoutMs = 0;
 
-            var cacheSecs = settings.CacheExpirationSeconds;
-            if (Array.IndexOf(s_cacheExpirationPresets, cacheSecs) < 0)
-                cacheSecs = 0;
-            foreach (var sec in s_cacheExpirationPresets)
-                CacheExpirationOptions.Add(sec);
-            CacheExpirationSeconds = cacheSecs;
-
+            _settings.PropertyChanged += OnSettingsPropertyChanged;
             _settings.Commands.CollectionChanged += OnCommandsCollectionChanged;
             foreach (var cmd in _settings.Commands)
                 cmd.PropertyChanged += OnCommandPropertyChanged;
@@ -63,6 +43,7 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
                 return;
             _disposed = true;
 
+            _settings.PropertyChanged -= OnSettingsPropertyChanged;
             _settings.Commands.CollectionChanged -= OnCommandsCollectionChanged;
             foreach (var cmd in _settings.Commands)
                 cmd.PropertyChanged -= OnCommandPropertyChanged;
@@ -82,53 +63,20 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
             nameof(MoveSelectedCommandDownCommand))]
         private Command? _selectedCommand;
 
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
-        private string _zoxideExePath = string.Empty;
-
-        [ObservableProperty]
-        private int _commandTimeoutMs = 1000;
-
-        [ObservableProperty]
-        private int _cacheExpirationSeconds;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(
-            nameof(DeleteCustomCommandCommand),
-            nameof(DisableSelectedCommand))]
-        private string _defaultCommand = string.Empty;
-
         public ObservableCollection<string> EnabledCommandNames { get; } = [];
 
-        public ObservableCollection<int> CommandTimeoutOptions { get; } = [];
-
-        public ObservableCollection<int> CacheExpirationOptions { get; } = [];
-
-        partial void OnDefaultCommandChanged(string value)
+        private void OnSettingsPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            _settings.DefaultCommand = value;
-        }
-
-        partial void OnCommandTimeoutMsChanged(int value)
-        {
-            _settings.CommandTimeoutMs = value;
-        }
-
-        partial void OnCacheExpirationSecondsChanged(int value)
-        {
-            _settings.CacheExpirationSeconds = value;
-        }
-
-        private void RebuildCommandTimeoutOptions(int selectedMs)
-        {
-            var list = new List<int>(s_commandTimeoutPresets);
-            if (!list.Contains(selectedMs))
-                list.Add(selectedMs);
-            list.Sort();
-
-            CommandTimeoutOptions.Clear();
-            foreach (var ms in list)
-                CommandTimeoutOptions.Add(ms);
+            switch (e.PropertyName)
+            {
+                case nameof(Settings.ZoxideExePath):
+                    SaveCommand.NotifyCanExecuteChanged();
+                    break;
+                case nameof(Settings.DefaultCommand):
+                    DeleteCustomCommandCommand.NotifyCanExecuteChanged();
+                    DisableSelectedCommand.NotifyCanExecuteChanged();
+                    break;
+            }
         }
 
         [RelayCommand]
@@ -143,15 +91,14 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
             };
 
             if (dialog.ShowDialog() == true)
-                ZoxideExePath = dialog.FileName;
+                _settings.ZoxideExePath = dialog.FileName;
         }
 
         [RelayCommand]
         private async Task TestAsync()
         {
-            var path = ZoxideExePath;
+            var path = _settings.ZoxideExePath;
             var success = await ZoxideHelper.ValidateAsync(path).ConfigureAwait(true);
-            //var icon = _context.CurrentPluginMetadata.IcoPath;
 
             if (success)
             {
@@ -177,13 +124,12 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
         }
 
         private bool CanSave() =>
-            !string.IsNullOrWhiteSpace(ZoxideExePath)
-            && string.Equals(ZoxideExePath.Trim(), _lastSuccessfulTestPath?.Trim(), StringComparison.OrdinalIgnoreCase);
+            !string.IsNullOrWhiteSpace(_settings.ZoxideExePath)
+            && string.Equals(_settings.ZoxideExePath.Trim(), _lastSuccessfulTestPath?.Trim(), StringComparison.OrdinalIgnoreCase);
 
         [RelayCommand(CanExecute = nameof(CanSave))]
         private void Save()
         {
-            _settings.ZoxideExePath = ZoxideExePath;
             _context.API.SaveSettingJsonStorage<Settings>();
         }
 
@@ -226,7 +172,7 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
             var vm = new CommandEditViewModel(SelectedCommand);
             new CommandEditWindow(vm).ShowDialog();
             if (wasDefault)
-                DefaultCommand = SelectedCommand.Name;
+                _settings.DefaultCommand = SelectedCommand.Name;
             RefreshEnabledCommandNames();
         }
 
@@ -312,13 +258,13 @@ namespace Flow.Launcher.Plugin.Zoxide.ViewModels
 
             if (EnabledCommandNames.Count == 0)
             {
-                if (!string.IsNullOrEmpty(DefaultCommand))
-                    DefaultCommand = string.Empty;
+                if (!string.IsNullOrEmpty(_settings.DefaultCommand))
+                    _settings.DefaultCommand = string.Empty;
                 return;
             }
 
-            if (string.IsNullOrEmpty(DefaultCommand) || !EnabledCommandNames.Contains(DefaultCommand))
-                DefaultCommand = EnabledCommandNames[0];
+            if (string.IsNullOrEmpty(_settings.DefaultCommand) || !EnabledCommandNames.Contains(_settings.DefaultCommand))
+                _settings.DefaultCommand = EnabledCommandNames[0];
         }
 
         private void OnCommandsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)

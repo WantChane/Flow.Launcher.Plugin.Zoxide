@@ -2,7 +2,7 @@ using Flow.Launcher.Plugin.Zoxide.Helper;
 using Flow.Launcher.Plugin.Zoxide.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
+
 using System.Linq;
 
 namespace Flow.Launcher.Plugin.Zoxide.Results
@@ -157,8 +157,8 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
 
             return new Result
             {
-                Title = FormatTitle(path),
-                SubTitle = path,
+                Title = PathFormatter.FormatTitle(path),
+                SubTitle = PathFormatter.FormatParentPath(path, Main.Settings),
                 IcoPath = ico,
                 AddSelectedCount = false,
                 Score = entry.Score,
@@ -171,16 +171,6 @@ namespace Flow.Launcher.Plugin.Zoxide.Results
                     return true;
                 }
             };
-        }
-
-        private static string FormatTitle(string path)
-        {
-            if (string.IsNullOrEmpty(path))
-                return path;
-
-            var trimmed = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-            var name = Path.GetFileName(trimmed);
-            return string.IsNullOrEmpty(name) ? path : name;
         }
     }
 }
