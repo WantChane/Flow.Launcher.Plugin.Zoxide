@@ -2,9 +2,9 @@ name: Publish Release
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
-      - 'Flow.Launcher.Plugin.Zoxide/**'
+      - "Flow.Launcher.Plugin.Zoxide/plugin.json"
   workflow_dispatch:
 
 jobs:
