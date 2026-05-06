@@ -19,6 +19,7 @@
 - **右键菜单**：对选中结果使用已启用的命令打开路径（可在设置中增删）
 - **自定义图标**：每条命令可单独设置图标，支持从内置图标库选择或指定自定义图标路径
 - **与 zoxide 同步**：成功打开后可后台 `zoxide add`（见各命令上的「成功打开后执行 zoxide add」选项）；若目录已不存在则 `zoxide remove`
+- **缓存与模糊搜索**：可启用 zoxide 数据缓存，避免每次查询都执行 `zoxide query`；缓存命中后使用 Flow Launcher 模糊搜索过滤结果。启用缓存后搜索行为与 zoxide 原生差异较大，但额外支持拼音搜索
 
 > **说明：** 本插件不再提供 [ZoxidePy](https://github.com/WantChane/Flow.Launcher.Plugin.ZoxidePy) 的 `z cd` 功能；请考虑其他方法来向zoxide数据库中添加目录，例如修改注册表集成 `zoxide add` 到资源管理器的右键菜单。
 
@@ -46,7 +47,8 @@
    - 若已在 `PATH` 中，可填写 `zoxide.exe`
    - 否则填写完整路径，例如：`C:\Tools\zoxide.exe`
 2. **命令超时**：等待 zoxide 子进程结束的最长时间（毫秒）
-3. **默认命令与自定义命令**：选择用哪个命令打开目录；可为每条命令设置图标（内置图标库或自定义路径）、是否在成功打开后执行 `zoxide add`
+3. **缓存过期时间**：设为 0 则不缓存，每次查询执行 `zoxide query`；设为大于 0 的值则缓存 zoxide 全部数据 N 秒，通过 Flow Launcher 模糊搜索过滤结果
+4. **默认命令与自定义命令**：选择用哪个命令打开目录；可为每条命令设置图标（内置图标库或自定义路径）、是否在成功打开后执行 `zoxide add`
 
 默认触发关键字为 **`z`**。
 
@@ -56,7 +58,7 @@
 
 - 输入触发词 `z`、空格，再输入查询词（与 zoxide 行为基本一致）
 - 示例：`z doc` 查找与 `doc` 相关的常用目录
-- 注意，本插件**不支持** Flow Launcher 的使用拼音搜索功能
+- 注意，本插件默认搜索行为与 zoxide 原生基本一致，**不支持**拼音搜索；启用缓存后切换为 Flow Launcher 模糊搜索，此时支持拼音搜索，但搜索结果与 zoxide 原生有较大区别
 
 ### 操作
 
@@ -91,6 +93,7 @@ This plugin invokes `zoxide query` from Flow Launcher, lists directories ranked 
 - **Context menu**: Right-click a result to open the path with another enabled command (add or remove commands in settings)
 - **Custom icons**: Each command can have its own icon — choose from built-in options or specify a custom icon path
 - **Zoxide sync**: Optionally run `zoxide add` in the background after a successful open (see each command’s “Run zoxide add after opening path successfully” option); if the directory no longer exists, run `zoxide remove`
+- **Cache & fuzzy search**: Optionally cache zoxide data to avoid running `zoxide query` on every keystroke; when cache is hit, results are filtered using Flow Launcher’s fuzzy search. Enabling cache changes search behavior significantly compared to native zoxide, but adds Pinyin search support
 
 > **Note:** This plugin no longer provides the `z cd` functionality of [ZoxidePy](https://github.com/WantChane/Flow.Launcher.Plugin.ZoxidePy); please consider other methods to add directories to the zoxide database, such as modifying the registry to integrate `zoxide add` into the Explorer's right-click menu.
 
@@ -118,7 +121,8 @@ Execute `pm install Zoxide by WantChane`
    - If on `PATH`, you can use `zoxide.exe`
    - Otherwise use a full path, e.g. `C:\Tools\zoxide.exe`
 2. **Command timeout**: Maximum time to wait for the zoxide child process (milliseconds)
-3. **Default & custom commands**: Choose how directories are opened; set a per-command icon (built-in or custom path), and optionally enable `zoxide add` after a successful open
+3. **Cache expiration**: Set to 0 to disable caching (run `zoxide query` every time); set >0 to cache all zoxide data for N seconds and filter results via Flow Launcher fuzzy search
+4. **Default & custom commands**: Choose how directories are opened; set a per-command icon (built-in or custom path), and optionally enable `zoxide add` after a successful open
 
 The default action keyword is **`z`**.
 
@@ -128,7 +132,7 @@ The default action keyword is **`z`**.
 
 - Type the action keyword `z`, a space, then your query (same idea as zoxide)
 - Example: `z doc` to find directories you often use related to `doc`
-- **Note:** This plugin does **not** support Flow Launcher’s Pinyin-based search
+- **Note:** By default search behavior closely matches native zoxide and does **not** support Pinyin; enabling cache switches to Flow Launcher’s fuzzy search, which supports Pinyin but produces results that differ significantly from native zoxide
 
 ### Actions
 
