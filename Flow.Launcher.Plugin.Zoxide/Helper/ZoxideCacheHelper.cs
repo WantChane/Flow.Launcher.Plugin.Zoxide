@@ -11,7 +11,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Helper
     {
         private const string CacheKey = "zoxide_all_data";
 
-        public static async Task ClearCache()
+        public static async Task ClearCacheAsync()
         {
             var _context = Main.Context;
             var cacheDirectory = _context.CurrentPluginMetadata.PluginCacheDirectoryPath;

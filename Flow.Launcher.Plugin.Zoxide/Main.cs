@@ -94,6 +94,7 @@ namespace Flow.Launcher.Plugin.Zoxide
         public async Task ReloadDataAsync()
         {
             await ZoxideHelper.ValidateAsync(Settings.ZoxideExePath);
+            await ZoxideCacheHelper.ClearCacheAsync();
         }
 
         public string GetTranslatedPluginTitle()
