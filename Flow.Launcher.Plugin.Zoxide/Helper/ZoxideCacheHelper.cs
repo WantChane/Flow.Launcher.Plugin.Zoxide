@@ -15,10 +15,9 @@ namespace Flow.Launcher.Plugin.Zoxide.Helper
         {
             var _context = Main.Context;
             var cacheDirectory = _context.CurrentPluginMetadata.PluginCacheDirectoryPath;
-            var cache = await _context.API.LoadCacheBinaryStorageAsync(CacheKey, cacheDirectory, new CachedZoxideEntries());
-            cache.CachedAt = DateTime.UtcNow;
+            var cache = await _context.API.LoadCacheBinaryStorageAsync(CacheKey, cacheDirectory, new CachedZoxideEntries()).ConfigureAwait(false);
             cache.Entries = [];
-            await _context.API.SaveCacheBinaryStorageAsync<CachedZoxideEntries>(CacheKey, cacheDirectory);
+            await _context.API.SaveCacheBinaryStorageAsync<CachedZoxideEntries>(CacheKey, cacheDirectory).ConfigureAwait(false);
         }
 
         public static async Task<IReadOnlyList<ZoxideEntry>> GetEntriesAsync(
@@ -29,19 +28,19 @@ namespace Flow.Launcher.Plugin.Zoxide.Helper
             var _context = Main.Context;
             var cacheDirectory = _context.CurrentPluginMetadata.PluginCacheDirectoryPath;
 
-            var cache = await _context.API.LoadCacheBinaryStorageAsync(CacheKey, cacheDirectory, new CachedZoxideEntries());
+            var cache = await _context.API.LoadCacheBinaryStorageAsync(CacheKey, cacheDirectory, new CachedZoxideEntries()).ConfigureAwait(false);
 
             var isExpired = cache.Entries.Count == 0
                 || cache.CachedAt.AddSeconds(_settings.CacheExpirationSeconds) < DateTime.UtcNow;
 
             if (isExpired)
             {
-                var result = await ZoxideHelper.ZoxideQueryAsync(_settings.ZoxideExePath, null, token);
+                var result = await ZoxideHelper.ZoxideQueryAsync(_settings.ZoxideExePath, null, token).ConfigureAwait(false);
                 if (result.IsSuccess)
                 {
                     cache.Entries = [.. ZoxideHelper.ParseQueries(result.StandardOutput)];
                     cache.CachedAt = DateTime.UtcNow;
-                    await _context.API.SaveCacheBinaryStorageAsync<CachedZoxideEntries>(CacheKey, cacheDirectory);
+                    await _context.API.SaveCacheBinaryStorageAsync<CachedZoxideEntries>(CacheKey, cacheDirectory).ConfigureAwait(false);
                 }
             }
 

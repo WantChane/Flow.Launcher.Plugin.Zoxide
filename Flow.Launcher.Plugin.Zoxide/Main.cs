@@ -4,7 +4,6 @@ using Flow.Launcher.Plugin.Zoxide.Results;
 using Flow.Launcher.Plugin.Zoxide.ViewModels;
 using Flow.Launcher.Plugin.Zoxide.Views;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -17,56 +16,30 @@ namespace Flow.Launcher.Plugin.Zoxide
 
         internal static Settings Settings { get; private set; } = null!;
 
-        public async Task<List<Result>> QueryAsync(Query query, CancellationToken token)
+        public Task<List<Result>> QueryAsync(Query query, CancellationToken token)
+            => QueryCoreAsync(query, token);
+
+        public async Task<List<DialogJumpResult>> QueryDialogJumpAsync(Query query, CancellationToken token)
+        {
+            var results = await QueryCoreAsync(query, token).ConfigureAwait(false);
+            return results.ConvertAll(r => DialogJumpResult.From(r, r.CopyText ?? string.Empty));
+        }
+
+        private static async Task<List<Result>> QueryCoreAsync(Query query, CancellationToken token)
         {
             if (string.IsNullOrWhiteSpace(Settings.ZoxideExePath) || !ZoxideHelper.IsPathValid)
                 return ZoxideSetupRequiredResultFactory.Create();
 
             if (Settings.CacheExpirationSeconds > 0)
             {
-                var entries = await ZoxideCacheHelper.GetEntriesAsync(
-                    query.Search,
-                    token);
+                var entries = await ZoxideCacheHelper.GetEntriesAsync(query.Search, token).ConfigureAwait(false);
                 if (entries.Count == 0)
-                {
                     return ZoxideQueryResultFactory.NoMatchesResults();
-                }
                 return ZoxideQueryResultFactory.FromEntries(entries);
             }
 
-            var execution = await ZoxideHelper.ZoxideQueryAsync(
-                Settings.ZoxideExePath,
-                query.Search,
-                token);
-
+            var execution = await ZoxideHelper.ZoxideQueryAsync(Settings.ZoxideExePath, query.Search, token).ConfigureAwait(false);
             return ZoxideQueryResultFactory.FromQueryExecution(execution);
-        }
-
-        public async Task<List<DialogJumpResult>> QueryDialogJumpAsync(Query query, CancellationToken token)
-        {
-            if (string.IsNullOrWhiteSpace(Settings.ZoxideExePath) || !ZoxideHelper.IsPathValid)
-                return [.. ZoxideSetupRequiredResultFactory.Create().Select(r => DialogJumpResult.From(r, string.Empty))];
-
-            if (Settings.CacheExpirationSeconds > 0)
-            {
-                var entries = await ZoxideCacheHelper.GetEntriesAsync(
-                    query.Search,
-                    token);
-                if (entries.Count == 0)
-                {
-                    var noMatch = ZoxideQueryResultFactory.NoMatchesResults();
-                    return [.. noMatch.Select(r => DialogJumpResult.From(r, string.Empty))];
-                }
-                var cachedResults = ZoxideQueryResultFactory.FromEntries(entries);
-                return [.. cachedResults.Select(r => DialogJumpResult.From(r, r.CopyText))];
-            }
-
-            var execution = await ZoxideHelper.ZoxideQueryAsync(
-                Settings.ZoxideExePath,
-                query.Search,
-                token);
-            var results = ZoxideQueryResultFactory.FromQueryExecution(execution);
-            return [.. results.Select(r => DialogJumpResult.From(r, r.CopyText))];
         }
 
         public List<Result> LoadContextMenus(Result selectedResult)
@@ -82,7 +55,7 @@ namespace Flow.Launcher.Plugin.Zoxide
             if (BootstrapHelper.EnsureCommandsAndDefault(Settings, context))
                 context.API.SaveSettingJsonStorage<Settings>();
 
-            await ZoxideHelper.ValidateAsync(Settings.ZoxideExePath);
+            await ZoxideHelper.ValidateAsync(Settings.ZoxideExePath).ConfigureAwait(false);
         }
 
         public Control CreateSettingPanel()
@@ -93,8 +66,8 @@ namespace Flow.Launcher.Plugin.Zoxide
 
         public async Task ReloadDataAsync()
         {
-            await ZoxideHelper.ValidateAsync(Settings.ZoxideExePath);
-            await ZoxideCacheHelper.ClearCacheAsync();
+            await ZoxideHelper.ValidateAsync(Settings.ZoxideExePath).ConfigureAwait(false);
+            await ZoxideCacheHelper.ClearCacheAsync().ConfigureAwait(false);
         }
 
         public string GetTranslatedPluginTitle()

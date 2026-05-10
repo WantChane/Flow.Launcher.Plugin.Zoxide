@@ -33,7 +33,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Helper
                 return false;
             }
 
-            var versionString = await ZoxideVersionAsync(zoxidePath);
+            var versionString = await ZoxideVersionAsync(zoxidePath).ConfigureAwait(false);
             if (string.IsNullOrWhiteSpace(versionString))
             {
                 return false;
@@ -153,7 +153,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Helper
 
         private static async Task<string?> ZoxideVersionAsync(string zoxidePath)
         {
-            var r = await ExecuteCommandAsync(zoxidePath, ["--version"]);
+            var r = await ExecuteCommandAsync(zoxidePath, ["--version"]).ConfigureAwait(false);
             return r.IsSuccess ? r.StandardOutput?.Trim() : null;
         }
 
@@ -221,7 +221,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Helper
 
                 try
                 {
-                    await Task.WhenAll(outputTask, errorTask, exitTask);
+                    await Task.WhenAll(outputTask, errorTask, exitTask).ConfigureAwait(false);
                 }
                 catch (OperationCanceledException)
                 {
@@ -236,8 +236,8 @@ namespace Flow.Launcher.Plugin.Zoxide.Helper
                     return ZoxideCommandExecutionResult.TimedOut();
                 }
 
-                var output = await outputTask;
-                var error = await errorTask;
+                var output = await outputTask.ConfigureAwait(false);
+                var error = await errorTask.ConfigureAwait(false);
 
                 if (process.ExitCode != 0)
                 {
