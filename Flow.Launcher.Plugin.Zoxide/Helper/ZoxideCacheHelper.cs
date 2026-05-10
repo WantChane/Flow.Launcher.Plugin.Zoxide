@@ -54,20 +54,7 @@ namespace Flow.Launcher.Plugin.Zoxide.Helper
             if (string.IsNullOrWhiteSpace(searchTerms))
                 return [.. entries.OrderByDescending(e => e.Score)];
 
-
-            var matchedEntries = new List<ZoxideEntry>();
-
-            foreach (var entry in entries)
-            {
-                var matchResult = Main.Context.API.FuzzySearch(searchTerms, entry.Path);
-
-                if (matchResult.Success)
-                {
-                    matchedEntries.Add(entry);
-                }
-            }
-
-            return [.. matchedEntries.OrderByDescending(e => e.Score)];
+            return FuzzyMatchHelper.Filter(entries, searchTerms);
         }
     }
 }
